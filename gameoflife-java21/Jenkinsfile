@@ -9,13 +9,13 @@ pipeline {
         stage ('SCM') {
             steps {
                 sh 'rm -rf *'
-                sh 'git clone https://github.com/SShifa/new-project.git'
+                sh 'git clone https://github.com/Satyam/new-project1.git'
             }
         }
         stage ('BUILD') {
             steps {
                  sh '''
-                cd /mnt/war/new-project/gameoflife-java21
+                cd /mnt/war/new-project1/gameoflife-java21
                 /mnt/build-tool/apache-maven-3.9.16/bin/mvn clean install
                 '''
             }
@@ -23,7 +23,7 @@ pipeline {
         stage ('UPLOAD-WAR-TO-S3') {
             steps {
                  sh '''
-                aws s3 cp /mnt/war/new-project/gameoflife-java21/target/gameoflife-java21-0.0.1-SNAPSHOT.war s3://war-gameoflife-shifa/
+                aws s3 cp /mnt/war/new-project1/gameoflife-java21/target/gameoflife-java21-0.0.1-SNAPSHOT.war s3://war-gameoflife-satyam/
                 '''
             }
         }
@@ -35,7 +35,7 @@ pipeline {
             }
             steps {
                  sh '''
-                aws s3 cp s3://war-gameoflife-shifa/gameoflife-java21-0.0.1-SNAPSHOT.war /mnt/apache-tomcat-10.1.55/webapps/
+                aws s3 cp s3://war-gameoflife-satyam/gameoflife-java21-0.0.1-SNAPSHOT.war /mnt/apache-tomcat-10.1.55/webapps/
                 '''
             }
         }
